@@ -13,7 +13,7 @@
 Внести изменения в переменных:
 "mountable_directory" - указать путь для создания расшариваемой директории
 "network_permission_for_mounting" - указать сеть, которой будет разрешён доступ к монтированию
-"permissions_for_the_mount_directory" - указать права которые будут применены к расшариваемой директории в файлк /etc/exports
+"permissions_for_the_mount_directory" - указать права которые будут применены к расшариваемой директории в файлe /etc/exports
 #
 3. Выполнить запуск роли
 # ansible-playbook nfs-server.yaml
