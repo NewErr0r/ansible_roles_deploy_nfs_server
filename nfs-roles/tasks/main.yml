@@ -1,0 +1,9 @@
+---
+- include_tasks: centos_nfs_server.yaml
+  when: 
+    - ansible_os_family == 'RedHat'
+
+- include_tasks: debian_nfs_server.yaml
+  when: 
+    - ansible_os_family == 'Debian'
+

@@ -1,0 +1,27 @@
+---   
+- name: Install nfs-kernel-server for Debian
+  apt:
+    name: nfs-kernel-server
+    state: latest
+
+- name: Create a mountable directory for Debian
+  file: 
+    path: "{{ mountable_directory }}"
+    state: directory
+    mode: ugo+rwx
+
+- name: Deploy "exports" file for Debian
+  template:
+    src: exports.j2
+    dest: /etc/exports 
+
+- name: NFS apply change configure for Debian
+  shell: exportfs -r
+
+- name: Check showmount for Debian
+  shell: showmount -e localhost
+  register: showmount 
+
+- name: showmount localhost for Debian
+  debug: 
+    var: showmount.stdout_lines 

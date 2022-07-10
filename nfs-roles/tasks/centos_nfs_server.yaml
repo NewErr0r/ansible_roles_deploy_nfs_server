@@ -1,0 +1,41 @@
+---
+- name: Install nfs-utils for CentOS
+  yum:
+    name: nfs-utils
+    state: latest
+  notify:
+    - Started and Enabled nfs-server
+
+- name: Permissions for Firewalld for CentOS
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled 
+  loop:
+    - "nfs"
+    - "rpc-bind"
+    - "mountd"
+  notify:
+    - Restart Firewalld
+
+- name: Create a mountable directory for CentOS
+  file: 
+    path: "{{ mountable_directory }}"
+    state: directory
+    mode: ugo+rwx
+
+- name: Deploy "exports" file for CentOS
+  template:
+    src: exports.j2
+    dest: /etc/exports
+
+- name: NFS apply change configure for CentOS
+  shell: exportfs -arv
+
+- name: Check showmount for CentOS
+  shell: showmount -e localhost
+  register: showmount 
+
+- name: showmount localhost for CentOS
+  debug: 
+    var: showmount.stdout_lines    

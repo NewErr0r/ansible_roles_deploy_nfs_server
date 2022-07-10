@@ -1,0 +1,4 @@
+---
+mountable_directory: /mnt/nfs_shares
+network_permission_for_mounting: "192.168.0.0/24"
+permissions_for_the_mount_directory: "rw,sync"
